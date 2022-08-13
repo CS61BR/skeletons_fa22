@@ -1,10 +1,10 @@
 mod tests;
 
-fn is_leap_year(year:i32) -> bool {
+fn is_leap_year(year: i32) -> bool {
     unimplemented!("is_leap_year") // TODO: YOUR CODE HERE
 }
 
-fn check_leap_year(year:i32) {
+fn check_leap_year(year: i32) {
     if is_leap_year(year) {
         println!("{year} is a leap year.");
     } else {
@@ -21,7 +21,7 @@ fn main() {
         for arg in args {
             match arg.parse() {
                 Ok(n) => check_leap_year(n),
-                Err(_) => println!("{arg} is not a valid number.")
+                Err(_) => println!("{arg} is not a valid number."),
             }
         }
     }

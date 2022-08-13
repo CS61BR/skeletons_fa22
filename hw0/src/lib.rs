@@ -1,15 +1,13 @@
 mod solutions;
 pub use solutions::*;
 
-
-/* 
+/*
 Feel free to add your own tests. For now, you can just follow the pattern you
 see here. We'll look into the details of unit testing later.
 
 To actually run the tests, just use
 cargo test
 */
-
 
 #[cfg(test)]
 mod tests {
@@ -25,7 +23,11 @@ mod tests {
 
     #[test]
     fn word_bank_test() {
-        let adjectives = vec![String::from("big"), String::from("cool"), String::from("cheesy")];
+        let adjectives = vec![
+            String::from("big"),
+            String::from("cool"),
+            String::from("cheesy"),
+        ];
         assert_eq!(word_bank(String::from("big"), adjectives.clone()), true);
         assert_eq!(word_bank(String::from("dog"), adjectives.clone()), false);
         // REPLACE THIS WITH MORE TESTS
