@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <head>
+      <meta charset="utf-8" />
+      <title>2048</title>
+    </head>
+    <style>
+      .content {
+        text-align: center;
+      }
+      .canvas-box {
+        padding-top: 5px;
+      }
+      .input-box {
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <div class="content">
+      <h1>2048</h1>
+      <div class="input-box">
+        <input id="width-inp" type="number" value="4" min="0" style="width:3em"> by 
+        <input id="height-inp" type="number" value="4" min="0" style="width:3em">
+      </div>
+      <button id="new-game-btn">New game</button>
+      <div class="canvas-box"><canvas id="main-canvas"></canvas></div>
+      <p id="score">loading...</p>
+    </div>
+
+    <script type="module">
+      import {start, set_canvas_size, request_animation_frame, draw_rectangle, draw_text, set_score_text} from "./bindings.js";
+
+      window.set_canvas_size = set_canvas_size;
+      window.request_animation_frame = request_animation_frame;
+      window.draw_rectangle = draw_rectangle;
+      window.draw_text = draw_text;
+      window.set_score_text = set_score_text;
+      start();
+    </script>
+  </body>
+</html>
