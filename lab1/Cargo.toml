@@ -1,8 +1,16 @@
 [package]
-name = "year"
+name = "lab1"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "leap_year"
+path = "src/leap_year.rs"
+
+[[bin]]
+name = "collatz"
+path = "src/collatz.rs"
 
 [dependencies]
