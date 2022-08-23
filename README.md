@@ -14,12 +14,12 @@ Good luck!
 
 ## Helpful tips
 
-Most assignments follow the pattern of "fill in the code and run the tests". In this case, you can run the tests using the `cargo test` command.
+To get up and running with Rust, you will need:
+ - `rustup`: install the Rust toolchain from https://rustup.rs/. This should install `cargo` for you, which contains all the tools needed to work on Rust code.
+ - VSCode with the rust-analyzer extension, or Neovim with the rust-analyzer language server. Intellij also has a Rust extension, but I prefer rust-analyzer.
 
-Some assignments will produce an executable (for example, lab1). You can run the executable via `cargo run`. For example, lab1 can be run with
-```
-cargo run 2000 2001 2002 2003 2004
-```
-The other way to run the executable is to build it via `cargo build` (or `cargo build --release`), and run the resulting binary in the `target/` directory.
+To learn Rust, check out https://www.rust-lang.org/learn. At minimum, you should go through the first few chapters of [the book](https://doc.rust-lang.org/book/title-page.html) - Rust has a relatively steep learning curve in the beginning, and several unique concepts not found in other languages.
+
+Once you've done the above, you're ready to complete these assignments! There are READMEs in each assignment folder.
 
 Because you are a civilized person, you should always run `cargo clippy` and `cargo fmt` before committing your code. Only a barbarian would ignore code style errors, or worse, try to fix them by hand.
