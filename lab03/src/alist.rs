@@ -50,12 +50,12 @@ impl<T: Default> AList<T> {
         self.len += 1;
     }
 
-    pub fn get(&self, ind: usize) -> Option<&T> {
-        self.items.get(ind)
+    pub fn get(&self, index: usize) -> Option<&T> {
+        self.items.get(index)
     }
 
-    pub fn get_mut(&mut self, ind: usize) -> Option<&mut T> {
-        self.items.get_mut(ind)
+    pub fn get_mut(&mut self, index: usize) -> Option<&mut T> {
+        self.items.get_mut(index)
     }
 
     pub fn get_last(&self) -> Option<&T> {
