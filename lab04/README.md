@@ -8,12 +8,14 @@
 
 ### Horrible Steve
 
-Your company, Flik Enterprises, has released a fine software library (`flik.rs`) that can square integers. 
+Your company, Flik Enterprises, has released a fine software library (`flik.rs`) that is able to determine whether two Integers are the same or not.
 
 You receive an email from someone named "Horrible Steve" who describes a problem they're having with your library:
 > Dear Flik Enterprises,
 > 
 > Your library is very bad. See the attached code. It should be printing "Incorrect. Access Denied", but is printing "Correct. Access Granted."
+>
+> (attachment: main.rs)*
 
 Figure out whether the bug is in Horrible Steve's code or in Flik Enterprise's library, and fix the bug.
 
