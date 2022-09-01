@@ -41,7 +41,7 @@ How to debug a test:
 You will be testing the following methods:
  - `rounded_division` (fix optional)
  - `sum_of_elementwise_maxes` and helpers (fix required)
- - `product` and `sum`
+ - `product` and `sum` (fix required)
  - `add_constant` (fix required)
  - `set_to_zero_if_max_fel` and helpers (fix required)
  - `square_primes` and helpers (fix required)

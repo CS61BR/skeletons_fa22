@@ -11,6 +11,7 @@ pub fn main() {
     let result = rounded_division(top, bot);
     println!("round({top} / {bot}) = {result}");
 
+    // we are expecting 3/4 = 0.75 to round to 1
     let top = 3;
     let bot = 4;
     let result = rounded_division(top, bot);
