@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <head>
+      <meta charset="utf-8" />
+      <title>Deques</title>
+    </head>
+    <style>
+      .content {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <div class="content">
+      <h1>Deques</h1>
+      <button id="audiobtn">sound</button>
+    </div>
+
+    <script>
+        document.getElementById("audiobtn").onclick = () => {
+          const audioCtx = new AudioContext();
+          const myArrayBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 3, audioCtx.sampleRate);
+
+          let period = Math.floor(audioCtx.sampleRate / 440);
+
+          // Fill the buffer with white noise;
+          // just random values between -1.0 and 1.0
+          for (let channel = 0; channel < myArrayBuffer.numberOfChannels; channel++) {
+              // This gives us the actual array that contains the data
+              const nowBuffering = myArrayBuffer.getChannelData(channel);
+              for (let i = 0; i < myArrayBuffer.length; i++) {
+                if (i < period) {
+                  nowBuffering[i] = Math.random() * 2 - 1;
+                } else {
+                  nowBuffering[i] = 0.996 * (nowBuffering[i - period] + nowBuffering[i - period +1]) * 0.5
+                }
+              }
+              console.log(nowBuffering);
+              console.log()
+
+              let sum = 0;
+              for (let a = 0 ; a < period; a++) sum = sum + (nowBuffering[a] * nowBuffering[a]);
+              let average = sum / period;
+              console.log(sum)
+              console.log(average)
+          }
+
+
+
+          const source = audioCtx.createBufferSource();
+          source.buffer = myArrayBuffer;
+          source.connect(audioCtx.destination);
+          source.start();
+        }
+    </script>
+  </body>
+</html>
