@@ -1,31 +1,33 @@
 // small random implementations
 // source: https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript
 
+use std::num::Wrapping;
+
 pub struct Random {
-    a: u32,
-    b: u32,
-    c: u32,
-    d: u32,
+    a: Wrapping<u32>,
+    b: Wrapping<u32>,
+    c: Wrapping<u32>,
+    d: Wrapping<u32>,
 }
 
 impl Random {
     // cyrb123 hash function
     pub fn new(seed: &str) -> Random {
-        let mut h1 = 1779033703;
-        let mut h2 = 3144134277;
-        let mut h3 = 1013904242;
-        let mut h4 = 2773480762;
+        let mut h1 = Wrapping(1779033703);
+        let mut h2 = Wrapping(3144134277);
+        let mut h3 = Wrapping(1013904242);
+        let mut h4 = Wrapping(2773480762);
         for b in seed.as_bytes() {
-            let k: u32 = (*b).into();
-            h1 = h2 ^ ((h1 ^ k) * 597399067);
-            h2 = h3 ^ ((h2 ^ k) * 2869860233);
-            h3 = h4 ^ ((h3 ^ k) * 951274213);
-            h4 = h1 ^ ((h4 ^ k) * 2716044179);
+            let k = Wrapping(u32::from(*b));
+            h1 = h2 ^ ((h1 ^ k) * Wrapping(597399067));
+            h2 = h3 ^ ((h2 ^ k) * Wrapping(2869860233));
+            h3 = h4 ^ ((h3 ^ k) * Wrapping(951274213));
+            h4 = h1 ^ ((h4 ^ k) * Wrapping(2716044179));
         }
-        h1 = h3 ^ ((h1 >> 18) * 597399067);
-        h2 = h4 ^ ((h2 >> 22) * 2869860233);
-        h3 = h1 ^ ((h3 >> 17) * 951274213);
-        h4 = h2 ^ ((h4 >> 19) * 2716044179);
+        h1 = h3 ^ ((h1 >> 18) * Wrapping(597399067));
+        h2 = h4 ^ ((h2 >> 22) * Wrapping(2869860233));
+        h3 = h1 ^ ((h3 >> 17) * Wrapping(951274213));
+        h4 = h2 ^ ((h4 >> 19) * Wrapping(2716044179));
         Random {
             a: h1 ^ h2 ^ h3 ^ h4,
             b: h1 ^ h2,
@@ -43,9 +45,10 @@ impl Random {
         self.d += 1;
         t += self.d;
         self.c += t;
-        t
+        t.0
     }
 
+    // returns an f64 in the range [0, 1)
     pub fn next_f64(&mut self) -> f64 {
         let n: f64 = self.next().into();
         n / 4294967296.0 // 2**32

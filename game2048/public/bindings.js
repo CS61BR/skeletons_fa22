@@ -1,4 +1,4 @@
-import init, { Game } from "./pkg/game2048.js";
+import init, { Game } from "../pkg/game2048.js";
 
 let seed_string;
 let game;
