@@ -4,6 +4,7 @@
     <head>
       <meta charset="utf-8" />
       <title>Deques</title>
+      <link rel="icon" type="image/x-icon" href="/public/icons8-cheese-64.png">
     </head>
     <style>
       .content {
@@ -14,46 +15,43 @@
   <body>
     
     <div class="content">
-      <h1>Deques</h1>
-      <button id="audiobtn">sound</button>
+      <h1>Music</h1>
+      <div>
+        <button id="audiobtn1">A (440 Hz)</button>
+        <button id="audiobtn2">C (523 Hz)</button>
+      </div>
+      <br>
+      <div hidden>
+        <button id="audiobtn3">TTFAF</button>
+      </div>
     </div>
 
-    <script>
-        document.getElementById("audiobtn").onclick = () => {
-          const audioCtx = new AudioContext();
-          const myArrayBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 3, audioCtx.sampleRate);
+    <script type="module">
+      import setup from "./public/main.js";
+      let btn1_pressed = false;
+      let btn2_pressed = false;
 
-          let period = Math.floor(audioCtx.sampleRate / 440);
-
-          // Fill the buffer with white noise;
-          // just random values between -1.0 and 1.0
-          for (let channel = 0; channel < myArrayBuffer.numberOfChannels; channel++) {
-              // This gives us the actual array that contains the data
-              const nowBuffering = myArrayBuffer.getChannelData(channel);
-              for (let i = 0; i < myArrayBuffer.length; i++) {
-                if (i < period) {
-                  nowBuffering[i] = Math.random() * 2 - 1;
-                } else {
-                  nowBuffering[i] = 0.996 * (nowBuffering[i - period] + nowBuffering[i - period +1]) * 0.5
-                }
-              }
-              console.log(nowBuffering);
-              console.log()
-
-              let sum = 0;
-              for (let a = 0 ; a < period; a++) sum = sum + (nowBuffering[a] * nowBuffering[a]);
-              let average = sum / period;
-              console.log(sum)
-              console.log(average)
-          }
-
-
-
-          const source = audioCtx.createBufferSource();
-          source.buffer = myArrayBuffer;
-          source.connect(audioCtx.destination);
-          source.start();
+      function try_reveal() {
+        if (btn1_pressed && btn2_pressed) {
+          document.getElementById("audiobtn3").parentElement.hidden = false;
         }
+      }
+
+      function btn1() {
+        btn1_pressed = true;
+        try_reveal();
+      }
+
+      function btn2() {
+        btn2_pressed = true;
+        try_reveal();
+      }
+
+      setup([
+        ["audiobtn1", 0.996, false, 440, btn1],
+        ["audiobtn2", 0.996, false, 523, btn2],
+        ["audiobtn3", 0.996, true, 0, () => {}],
+      ]);
     </script>
   </body>
 </html>

@@ -1,6 +1,5 @@
 use std::fmt::Display;
 
-
 #[cfg(test)]
 mod tests;
 

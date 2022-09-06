@@ -1,2 +1,2 @@
-mod bindings;
-mod deques;
+pub mod deques;
+pub mod gh2;

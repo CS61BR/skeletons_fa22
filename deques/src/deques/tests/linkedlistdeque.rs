@@ -46,7 +46,7 @@ fn add_remove_test() {
 fn remove_empty_test() {
     let mut lld = LinkedListDeque::new();
     lld.add_first(10);
-    
+
     let el = lld.remove_last();
     assert_eq!(el, Some(10));
     assert!(lld.is_empty());
