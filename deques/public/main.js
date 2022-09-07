@@ -39,6 +39,7 @@ export default async function setup(buttons) {
     let handlerFactory = (att, isTTAF, hz, callback) => {
         return async () => {
             const audioContext = new AudioContext();
+            await audioContext.resume(); // for Safari
             await audioContext.audioWorklet.addModule('./public/processor.js');
             let cheese = new CheeseNode(audioContext, 'cheese-processor');
             cheese.init(wasmBytes, audioContext.sampleRate, att, isTTAF, hz);
