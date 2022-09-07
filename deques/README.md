@@ -3,10 +3,10 @@
 ## Background
 
 Since the setup for Rust is very different from the Java version, the following tutorials are recommended:
- - introduction
- - linkedlistdeque
- - arraydeque
- - averagingdeque
+ - 01\_introduction
+ - 02\_linkedlistdeque
+ - 03\_arraydeque
+ - 04\_averagingdeque
 
 You can find them in the `tutorials/` folder.
 
