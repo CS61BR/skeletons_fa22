@@ -33,7 +33,7 @@ class CheeseNode extends AudioWorkletNode {
 }
 
 export default async function setup(buttons) {
-    const response = await window.fetch("../pkg/deques_bg.wasm");
+    const response = await window.fetch("./pkg/deques_bg.wasm");
     const wasmBytes = await response.arrayBuffer();
 
     let handlerFactory = (att, isTTAF, hz, callback) => {

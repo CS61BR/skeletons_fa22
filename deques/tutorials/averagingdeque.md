@@ -12,11 +12,11 @@ The goal of the `AveragingDeque` is to extend the functionality of one of our ex
 > ```
 > and we'll get almost all the functionality for free! What an elegant solution!
 
-but like most uses of inheritance, this would be a mistake. To start with, we'll be overriding any methods that modify the deque (`add_first`, `remove_last`, etc). Given that this is more than half of our methods, the "free functionality" isn't that appealing anymore. Secondly, we have to be carely to intercept _every_ method that modifies the deque. That may not seem like a big deal right now, but if somebody decided to add a method to `ArrayDeque`,
+but like most uses of inheritance, this would be a mistake. To start with, we'll be overriding any methods that modify the deque (`add_first`, `remove_last`, etc). Given that this is more than half of our methods, the "free functionality" isn't that appealing anymore. Secondly, we have to be careful to intercept _every_ method that modifies the deque. That may not seem like a big deal right now, but after we've made `AveragingDeque`, if somebody decided to add a method to `ArrayDeque`,
 ```
 public void addSecond(T item) {...}
 ```
-everything would fall apart.
+everything in `AveragingDeque` would fall apart.
 
 Luckily, Rust is not an OOP language, so we don't need to bother ourselves with such foolishness.
 
@@ -30,7 +30,7 @@ pub struct AveragingDeque<T> {
 }
 ```
 
-(feel free to replace use a `LinkedListDeque<T>` instead of an `ArrayDeque<T>`; it doesn't matter which one we use) This layout mimics inheritance, but does not share its pitfalls.
+(feel free to use a `LinkedListDeque<T>` instead of an `ArrayDeque<T>`; it doesn't matter which one we use)
 
 # Strategy
 

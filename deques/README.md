@@ -43,6 +43,8 @@ In the second terminal, run `python3 server.py`. This will start a web server. N
 
 Whenever you make changes to the code, rerun `wasm-pack build --target web`, and **hard-refresh** the browser page.
 
+Unfortunely, this project only works in Chrome; various issues keep it from working in any other browser.
+
 ## Testing Code
 
  - Deques: Simple tests for `LinkedListDeque` are provided; you should add your own tests to the `tests/` folder.
