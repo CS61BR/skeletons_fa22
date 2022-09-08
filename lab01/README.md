@@ -3,7 +3,7 @@
 
 ## Differences from the Java version
 
-none
+The first part of Lab1 is setup; for Rust setup, see the "Helpful tips" section of the main README.
 
 ## Writing Code
 
