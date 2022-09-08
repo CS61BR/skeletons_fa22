@@ -1,5 +1,6 @@
 # 2048
 
+Project demo: [2048](https://sberkun.github.io/2048/)
 
 ## Differences from the Java version
 

@@ -1,5 +1,7 @@
 # Deques
 
+Project demo: [music](https://sberkun.github.io/music/)
+
 ## Background
 
 Since the setup for Rust is very different from the Java version, the following tutorials are recommended:
