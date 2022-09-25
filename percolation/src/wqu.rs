@@ -1,6 +1,6 @@
 pub struct WeightedQuickUnion {
     parent: Vec<usize>, // parent of index (itself if root)
-    size: Vec<usize>,   // number of elelements in subtree rooted at index
+    size: Vec<usize>,   // number of elements in subtree rooted at index
     count: usize,       // number of components
 }
 
@@ -15,31 +15,31 @@ impl WeightedQuickUnion {
         }
     }
 
+    /// Returns the number of sets
     pub fn count(&self) -> usize {
         self.count
     }
 
-    fn root(&self, mut p: usize) -> usize {
+    /// Returns the canonical element of the set containing element `p`
+    pub fn find(&self, mut p: usize) -> Result<usize, &'static str> {
+        if p >= self.parent.len() {
+            return Err("index out of bounds");
+        }
         while p != self.parent[p] {
             p = self.parent[p];
         }
-        p
+        Ok(p)
     }
 
+    /// Returns whether two elements are in the same set
     pub fn connected(&self, p: usize, q: usize) -> Result<bool, &'static str> {
-        if p >= self.parent.len() || q >= self.parent.len() {
-            return Err("index out of bounds");
-        }
-        Ok(self.root(p) == self.root(q))
+        Ok(self.find(p)? == self.find(q)?)
     }
 
+    /// Merges the set containing element `p` with the set containing element `q`
     pub fn union(&mut self, p: usize, q: usize) -> Result<(), &'static str> {
-        if p >= self.parent.len() || q >= self.parent.len() {
-            return Err("index out of bounds");
-        }
-
-        let mut root_p = self.root(p);
-        let mut root_q = self.root(q);
+        let mut root_p = self.find(p)?;
+        let mut root_q = self.find(q)?;
         if root_p == root_q {
             return Ok(());
         }

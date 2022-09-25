@@ -76,13 +76,7 @@ impl Visualizer {
     pub fn start_stats(&mut self, width: usize, height: usize, trials: usize) {
         set_canvas_size(GRAPH_WIDTH, GRAPH_HEIGHT);
         set_bottom_text("Calculating...");
-        let stats_result = calculate_stats(
-            height * width,
-            trials,
-            || Percolation::new(width, height),
-            &mut self.rand,
-        );
-        match stats_result {
+        match calculate_stats::<Percolation>(width, height, trials, &mut self.rand) {
             Ok(stats) => {
                 self.mode = VisualizationMode::Stats(stats);
                 set_bottom_text("Done");

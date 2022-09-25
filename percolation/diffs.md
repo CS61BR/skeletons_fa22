@@ -15,11 +15,11 @@ If `row` or `col` is out of bounds, `open` can return something like `Err("out o
 ## Dependency Injection
 Both the Rust and Java versions do dependency injection, but slightly differently:
  - the Java version uses a class `PercolationFactory`, and subclasses both `PercolationFactory` and `Percolation` to provide a different implementation of `Percolation`
- - the Rust version uses a trait `Percolatable`, and uses a closure `percolation_producer` in place of the `PercolationFactory`
+ - the Rust version uses a trait `Percolatable`, and lets `calculate_stats` be generic over `P: Percolatable`.
 
-To get a `Percolatable` object from `percolation_producer`, you can simply call it:
+To get a new `Percolatable` object you can simply do:
 ```
-let mut p = percolation_producer();
+let mut p = P::new(width, height);
 ```
 
 ## Counts in Percolation Statistics
