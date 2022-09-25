@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <head>
+      <meta charset="utf-8" />
+      <title>Percolation</title>
+      <link rel="icon" type="image/x-icon" href="/public/icons8-cheese-64.png">
+    </head>
+    <style>
+      .content {
+        text-align: center;
+      }
+      .canvas-box {
+        padding-top: 5px;
+      }
+      .pad {
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <div class="content">
+      <h1>Percolation</h1>
+      <button id="interactive-btn">Interactive</button>
+      <button id="random-btn">Random Picture</button>
+      <button id="stats-btn">Statistics</button>
+
+      <div class="pad" id="interactive-box">
+        <input id="i-width-inp" type="number" value="20" min="0" style="width:3em"> by 
+        <input id="i-height-inp" type="number" value="20" min="0" style="width:3em"> grid:
+        <button id="interactive-btn-2">Go</button>
+      </div>
+      <div class="pad" id="stats-box" style="display: none">
+        Simulations for
+        <input id="s-width-inp" type="number" value="50" min="0" style="width:3em"> by 
+        <input id="s-height-inp" type="number" value="50" min="0" style="width:3em"> grid
+        with
+        <input id="s-trials-inp" type="number" value="100" min="0" style="width:3em"> trials:
+        <button id="stats-btn-2">Go</button>
+        <br>
+        <br>
+        <h2>Probability of Percolation vs Proportion of Open Sites</h2>
+      </div>
+      <div class="canvas-box"><canvas id="main-canvas"></canvas></div>
+      <p id="bottom-text">loading...</p>
+    </div>
+
+    <script type="module">
+      import {start, set_canvas_size, request_animation_frame, draw_rectangle, draw_text, set_bottom_text} from "./public/bindings.js";
+
+      window.set_canvas_size = set_canvas_size;
+      window.request_animation_frame = request_animation_frame;
+      window.draw_rectangle = draw_rectangle;
+      window.draw_text = draw_text;
+      window.set_bottom_text = set_bottom_text;
+      start();
+    </script>
+  </body>
+</html>
