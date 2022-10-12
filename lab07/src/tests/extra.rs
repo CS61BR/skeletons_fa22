@@ -17,11 +17,12 @@ fn iter_test() {
         b.insert(k.clone(), v.clone());
     }
 
-    let mut iter = b.into_iter();
+    let mut bvec: Vec<(String, String)> = b.into_iter().collect();
+    bvec.sort();
+    assert_eq!(bvec.len(), keys.len());
     for i in 0..keys.len() {
-        assert_eq!(iter.next(), Some((keys[i].clone(), values[i].clone())));
+        assert_eq!(bvec[i], (keys[i].clone(), values[i].clone()));
     }
-    assert_eq!(iter.next(), None);
 }
 
 #[test]
