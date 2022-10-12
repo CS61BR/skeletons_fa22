@@ -129,3 +129,49 @@ fn tree_test() {
     assert_eq!(b.get(&k4), Some(&new_v4));
     assert_eq!(b.get_mut(&k4), Some(&mut new_v4));
 }
+
+#[test]
+fn functionality_test() {
+    let mut dictionary = TestMap::<&'static str, &'static str>::new();
+    let mut student_ids = TestMap::<&'static str, usize>::new();
+
+    assert_eq!(dictionary.len(), 0);
+
+    // can put objects in ductionary and get them
+    assert!(dictionary.insert("hello", "world").is_none());
+    assert!(dictionary.contains_key(&"hello"));
+    assert_eq!(dictionary.get(&"hello"), Some(&"world"));
+    assert_eq!(dictionary.get_mut(&"hello"), Some(&mut "world"));
+    assert_eq!(dictionary.len(), 1);
+
+    // putting with existing key updates the value
+    assert_eq!(dictionary.insert("hello", "kevin"), Some("world"));
+    assert_eq!(dictionary.len(), 1);
+    assert!(dictionary.contains_key(&"hello"));
+    assert_eq!(dictionary.get(&"hello"), Some(&"kevin"));
+    assert_eq!(dictionary.get_mut(&"hello"), Some(&mut "kevin"));
+
+    // putting key multiple times does not affect behavior
+    assert!(student_ids.insert("sarah", 12345).is_none());
+    assert_eq!(student_ids.len(), 1);
+    assert_eq!(student_ids.get(&"sarah"), Some(&12345));
+    assert_eq!(student_ids.get_mut(&"sarah"), Some(&mut 12345));
+    assert!(student_ids.insert("alan", 345).is_none());
+    for _ in 0..3 {
+        assert_eq!(student_ids.len(), 2);
+        assert_eq!(student_ids.get(&"sarah"), Some(&12345));
+        assert_eq!(student_ids.get_mut(&"sarah"), Some(&mut 12345));
+        assert_eq!(student_ids.get(&"alan"), Some(&345));
+        assert_eq!(student_ids.get_mut(&"alan"), Some(&mut 345));
+        assert_eq!(student_ids.insert("alan", 345), Some(345));
+    }
+
+    // handle values being the same
+    assert_eq!(student_ids.get(&"alan"), Some(&345));
+    assert_eq!(student_ids.get_mut(&"alan"), Some(&mut 345));
+    assert!(student_ids.insert("evil alan", 345).is_none());
+    assert_eq!(student_ids.get(&"alan"), Some(&345));
+    assert_eq!(student_ids.get_mut(&"alan"), Some(&mut 345));
+    assert_eq!(student_ids.get(&"evil alan"), Some(&345));
+    assert_eq!(student_ids.get_mut(&"evil alan"), Some(&mut 345));
+}

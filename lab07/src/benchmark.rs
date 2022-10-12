@@ -44,7 +44,6 @@ fn main() -> io::Result<()> {
     }
 }
 
-
 fn all_ordered(choices: &str, n: usize) {
     for c in choices.chars() {
         match c {

@@ -27,7 +27,7 @@ You are required to implement the following methods:
 
 The following methods are optional. If you don't implement them, just replace their bodies with `unimplemented!()`:
  - `remove`
- - `into_iter` (from the `IntoIterator` trait)
+ - `into_iter` (from the `IntoIterator` trait). If you don't plan on implementing this, you can use `std::vec::IntoIter<(K, V)>` as a placeholder for the trait's `IntoIter` type.
 
 
 
@@ -35,7 +35,7 @@ The following methods are optional. If you don't implement them, just replace th
 
 To test the required methods, run
 ```
-cargo test --lib bstmap
+cargo test --lib map
 ```
 To test the optional methods as well, run
 ```

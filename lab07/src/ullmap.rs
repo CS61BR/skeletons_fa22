@@ -11,20 +11,9 @@ pub struct ULLMap<K, V> {
     size: usize,
 }
 
-pub struct ULLIter<K, V> {
-    nodes: Vec<(K, V)>, // holds values in reverse order
-}
-
-impl<K, V> Iterator for ULLIter<K, V> {
-    type Item = (K, V);
-    fn next(&mut self) -> Option<Self::Item> {
-        self.nodes.pop()
-    }
-}
-
 impl<K, V> IntoIterator for ULLMap<K, V> {
     type Item = (K, V);
-    type IntoIter = ULLIter<K, V>;
+    type IntoIter = std::vec::IntoIter<(K, V)>;
 
     fn into_iter(self) -> Self::IntoIter {
         let mut node = self.root;
@@ -34,10 +23,10 @@ impl<K, V> IntoIterator for ULLMap<K, V> {
             storage.push((key, value));
             node = next;
         }
-        storage.reverse();
-        ULLIter { nodes: storage }
+        storage.into_iter()
     }
 }
+
 impl<K: Eq, V> Map61B for ULLMap<K, V> {
     type Key = K;
     type Value = V;
