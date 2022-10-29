@@ -64,7 +64,7 @@ impl Visualizer {
             rand: Random::new(seed),
         };
         after_start(width, height);
-        return v;
+        v
     }
 
     pub fn start_interactive(&mut self, width: usize, height: usize) {
@@ -141,7 +141,7 @@ fn parse_input(input: &str) -> Option<(usize, usize, VisualizationMode)> {
     let mut lines = input.lines();
     let (width, height) = parse_line(lines.next()?)?;
     let mut tiles = lines
-        .map(|a| parse_line(a))
+        .map(parse_line)
         .collect::<Option<Vec<(usize, usize)>>>()?;
     tiles.reverse();
 
@@ -157,7 +157,7 @@ fn parse_input(input: &str) -> Option<(usize, usize, VisualizationMode)> {
 }
 
 fn parse_line(line: &str) -> Option<(usize, usize)> {
-    let mut tokens = line.trim().split_whitespace();
+    let mut tokens = line.split_whitespace();
     let a: usize = tokens.next()?.parse().ok()?;
     let b: usize = tokens.next()?.parse().ok()?;
     if tokens.next().is_none() {

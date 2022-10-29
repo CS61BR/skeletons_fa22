@@ -17,8 +17,8 @@ const GRAPH_BOTTOM: f64 = 50.0;
 const GRAPH_LEFT: f64 = 50.0;
 const LINE_WEIGHT: f64 = 3.0;
 const TICK_LEN: f64 = 20.0;
-const BLACK: &'static str = "#000000";
-const FONT: &'static str = "bold 10px sans-serif";
+const BLACK: &str = "#000000";
+const FONT: &str = "bold 10px sans-serif";
 const FONT_HEIGHT: f64 = 10.0;
 
 fn real_sizes(width: usize, height: usize) -> (f64, f64) {
