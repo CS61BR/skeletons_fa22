@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <head>
+      <meta charset="utf-8" />
+      <title>Lab 11</title>
+      <link rel="icon" type="image/x-icon" href="./public/icons8-cheese-64.png">
+    </head>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <div class="content">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <script type="module">
+      import init, { Binding } from "./pkg/lab11.js";
+      
+      init().then(() => {
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        window.onresize = () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+        };
+        
+        let cached_images = new Map();
+        window.register_image = (path, image_id) => {
+          let im = new Image();
+          im.src = "./public/" + path;
+          cached_images.set(image_id, im);
+        };
+
+        window.draw_image = (context, image_id, x, y, w, h) => {
+          context.drawImage(cached_images.get(image_id), x, y, w, h);
+        };
+
+        window.set_fill_color = (context, color_u32) => {
+          context.fillStyle = "#" + color_u32.toString(16).padStart(8, '0');
+        };
+
+        let cheese = Binding.new(window.localStorage);
+        (function animation_loop(timestamp) {
+          cheese.draw_animation_frame(ctx, canvas.width, canvas.height, timestamp);
+          requestAnimationFrame(animation_loop);
+        })();
+
+        document.addEventListener("keydown", (e) => {cheese.handle_keydown(e.code);});
+        document.addEventListener("keyup", (e) => {cheese.handle_keyup(e.code);});
+        document.addEventListener("mousedown", (e) => {cheese.handle_mousedown(e.clientX, e.clientY);});
+        document.addEventListener("mouseup", (e) => {cheese.handle_mouseup(e.clientX, e.clientY);});
+        document.addEventListener("mousemove", (e) => {cheese.handle_mousemove(e.clientX, e.clientY);});
+      });
+    </script>
+  </body>
+</html>
