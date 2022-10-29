@@ -1,3 +1,4 @@
+#![allow(dead_code)] // allow things in this module to go unused
 pub struct WeightedQuickUnion {
     parent: Vec<usize>, // parent of index (itself if root)
     size: Vec<usize>,   // number of elements in subtree rooted at index
@@ -43,7 +44,7 @@ impl WeightedQuickUnion {
         if root_p == root_q {
             return Ok(());
         }
-        if self.size[root_p] > self.size[root_p] {
+        if self.size[root_p] > self.size[root_q] {
             (root_p, root_q) = (root_q, root_p);
         }
         self.parent[root_p] = root_q;

@@ -8,6 +8,16 @@ use crate::{
 };
 use wasm_bindgen::prelude::*;
 
+#[cfg(not(target_arch = "wasm32"))]
+pub fn console_log_str(s: &str) {
+    println!("{}", s);
+}
+
+macro_rules! log {
+    ($($t:tt)*) => ($crate::bindings::console_log_str(&format_args!($($t)*).to_string()))
+}
+pub(crate) use log; // make log macro public
+
 #[wasm_bindgen]
 extern "C" {
     #[cfg(target_arch = "wasm32")]
@@ -23,15 +33,11 @@ extern "C" {
     pub fn set_bottom_text(text: &str);
 }
 
-#[cfg(not(target_arch = "wasm32"))]
-pub fn console_log_str(s: &str) {
-    println!("{}", s);
+#[wasm_bindgen(start)]
+pub fn main() {
+    // allows Rust to have actual error messages in webassembly
+    std::panic::set_hook(Box::new(console_error_panic_hook::hook));
 }
-
-macro_rules! log {
-    ($($t:tt)*) => (console_log_str(&format_args!($($t)*).to_string()))
-}
-pub(crate) use log; // make log macro public
 
 #[wasm_bindgen]
 pub struct Visualizer {
