@@ -2,10 +2,7 @@ use crate::{
     bindings::Storage,
     drawing::{
         board::Board,
-        tiles::{
-            Tile, AVATAR, CHEESE, FLOOR, FLOWER, GRASS, LOCKED_DOOR, MOUNTAIN, NOTHING, SAND,
-            UNLOCKED_DOOR, WALL, WATER,
-        },
+        tiles::{FLOWER, GRASS, NOTHING, WALL},
     },
     random::Random,
 };

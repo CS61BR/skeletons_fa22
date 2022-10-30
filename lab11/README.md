@@ -1,18 +1,19 @@
 # Lab 11
 
-[Note: Work in progress. TODO]
-
 ## Background
 
-This lab is an intro lab for the BYOW project. TODO
+This lab is an intro lab for the BYOW project. As a result, it has nearly the same skeleton. 
+
+Some documentation you should read through:
+ - [intro to the skeleton files](../byow/docs/what_do_the_files_do.md)
+ - [how to use Javascript APIs](../byow/docs/js_api.md)
 
 ## Differences from the Java version
 
-Many. See `diffs_from_java.md` when I finish making it.
+The Rust BYOW skeleton has significant differences from the Java BYOW skeleton; these differences are explained in detail [here](../byow/docs/diffs_from_java.md).  
 
-Also, the 3 demos are not in seperate files
+For lab 11 specifically, the main difference is that the 3 demos are not in seperate files. Instead, they're just functions that can be commented or uncommented in `game.rs`.
 
-TODO
 
 ## Writing Code
 
