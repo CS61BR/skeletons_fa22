@@ -19,7 +19,7 @@ Most of these methods are tied to a `&RenderingContext` or a `&Storage`. The typ
 
 This macro works exactly like `println!()`, but will print to the javascript console. 
 
-Example usages:
+Example:
 ```rust
 fn example() {
     let v = vec![1, 2, 3];
@@ -35,7 +35,7 @@ This function "registers" an image with the JS side, allowing us to call `ctx.dr
 
 Usually, the only place this needs to be called is `Binding::new`, to register all the images as soon as the page is loaded.
 
-Example usages:
+Example:
 ```rust
 fn run_first() {
     register_image("cheese.png", 42);
@@ -62,13 +62,13 @@ Draws an image on the canvas. The `image_id` must be registered with `register_i
 
 The parameters `x` and `y` refer to where the upper-left corner of the image will be drawn. The drawn image will be resized to `width` by `height`, so the original size of the image doesn't really matter.
 
-Example usages: see `register_image` example.
+Example: see `register_image` example.
 
 ## `ctx.set_fill_color(color)`
 
 Sets the fill color of the canvas, which future `fill_rect` and `fill_text` calls will use. The parameter `color` is a `u32` in rgba format.
 
-Example usages:
+Example:
 ```rust
 fn example(ctx: &RenderingContext) {
     ctx.set_fill_color(0xffafafff); // pink, fully opaque
@@ -85,13 +85,13 @@ fn example(ctx: &RenderingContext) {
 
 Fills in a rectangle with the canvas's fill color. The parameters `x` and `y` specify where the top-left corner of the rectangle will be drawn, and `width` and `height` specify the size of the rectangle.
 
-Example usages: see `set_fill_color` example.
+Example: see `set_fill_color` example.
 
 ## `ctx.set_font(font)`
 
 Sets the font and font size for drawing text.
 
-Example usages:
+Example:
 ```rust
 fn example(ctx: &RenderingContext) {
     let line_height = 10;
@@ -112,13 +112,13 @@ fn example(ctx: &RenderingContext) {
 
 Draws some text with the canvas's fill color and the canvas's font. `x` and `y` refer to the _center_ of the text, NOT the upper-left corner.
 
-Example usages: see `set_font` example.
+Example: see `set_font` example.
 
 ## `storage.set_item(key, value)`
 
 Puts a key-value pair in the storage object. The storage object (and anything you put in it) will persist even if the page is reloaded.
 
-Example usages:
+Example:
 ```rust
 fn run_first(storage: &Storage) {
     storage.set_item("song", "body once told me");
@@ -143,13 +143,13 @@ fn run_later(storage: &Storage) {
 
 Gets a value from the storage object, returning None if the key is not in storage.
 
-Example usages: see `set_item` example.
+Example: see `set_item` example.
 
 ## `storage.remove_item(key)`
 
 Removes a key-value pair from the storage object if it exists.
 
-Example usages:
+Example:
 ```rust
 fn example(storage: &Storage) {
     storage.set_item("cheese", "I like cheese");
@@ -166,7 +166,7 @@ fn example(storage: &Storage) {
 
 Removes all key-value pairs from the storage object.
 
-Example usages:
+Example:
 ```rust
 fn example(storage: &Storage) {
     storage.set_item("cheese", "I like cheese");
