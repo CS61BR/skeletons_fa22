@@ -1,0 +1,84 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#top {
+  margin: 1%;
+  margin-left: 7.5%;
+}
+
+.form-row {
+  margin-bottom: 1em;
+}
+
+.search {
+  font-size: large;
+}
+
+.submit-btn {
+  transition: 0.25s all;
+  padding: 10px 20px;
+  border-radius: 5px; 
+  border: none;
+  background: #26a9e0; 
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 400;
+  color: #fff;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  transition: 0.25s all;
+  box-shadow: 0 0 0px 0.25rem #26a9e0;
+}
+.num {
+  width: 4em;
+}
+
+hr {
+  border: 1px solid #ccc;
+}
+
+pre {
+  margin: 1% 7.5%;
+}
+
+.graph .labels.x-labels {
+  text-anchor: middle;
+}
+
+.graph .labels.y-labels {
+  text-anchor: end;
+}
+
+.graph {
+  width: 100%;
+}
+
+.graph .grid {
+  stroke: #ccc;
+  stroke-dasharray: 0;
+  stroke-width: 1;
+}
+
+.labels {
+  font-size: 13px;
+}
+
+.label-title {
+  font-weight: bold;
+  text-transform: lowercase;
+  font-size: 12px;
+  fill: #555558;
+}
+
+.infogroup {
+  font-size: 13px;
+}
+
+.infobox {
+  stroke: #aaa;
+  fill: white;
+  filter: drop-shadow(2px 2px 4px #888);
+}

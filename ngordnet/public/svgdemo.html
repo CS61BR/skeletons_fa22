@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Create SVGs with Javascript - Demo</title>
+  <style>
+  .post-icon {
+    height: 50%;
+    width: 50%;
+  }
+  </style>
+</head>
+<body>
+  <div id="posts"></div>
+  <script>
+
+function renderLinkIcon() {
+  const iconSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const iconPath = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "path"
+  );
+
+  iconSvg.setAttribute("viewBox", "0 0 24 24");
+  iconSvg.classList.add("post-icon");
+
+  iconPath.setAttribute("stroke", "black");
+  iconPath.setAttribute(
+    "d",
+    "M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+  );
+  iconPath.setAttribute("stroke-linecap", "round");
+  iconPath.setAttribute("stroke-linejoin", "round");
+  iconPath.setAttribute("stroke-width", "2");
+
+  iconSvg.appendChild(iconPath);
+
+  return iconSvg;
+}
+
+document.getElementById("posts").appendChild(renderLinkIcon());
+
+  </script>
+</body>
+</html>

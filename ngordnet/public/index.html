@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>NGordnet</title>
+    <link rel="icon" type="image/x-icon" href="icons8-cheese-64.png" />
+    <link rel="stylesheet" href="ngordnet.css" />
+  </head>
+  <body>
+    <div id="top">
+      <h1>NGordnet</h1>
+      <form id="main-form">
+        <div class="form-row">
+          <input name="words" class="search" type="text" placeholder="Enter words" required>
+        </div>
+        <div class="form-row">
+          <select name="queryType">
+            <option>History (graph)</option>
+            <option>History (text)</option>
+            <option>Synonyms (text)</option>
+            <option>Hyponyms (text)</option>
+          </select>
+          from <input name="startYear" class="num" type="number" value="1900" min="0" required> 
+          to <input name="endYear" class="num" type="number" value="2020" min="0" required>, 
+          with maximum <input name="k" class="num" type="number" value="0" min="0" required> results 
+        </div>
+        <div class="form-row">
+          <input class="submit-btn" type="submit" value="Go!">
+        </div>
+      </form>
+    </div>
+    <hr>
+    <div id="main"></div>
+    <script src="ngordnet.js" type="module"></script>
+  </body>
+</html>

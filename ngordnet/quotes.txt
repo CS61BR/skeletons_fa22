@@ -1,0 +1,7 @@
+Oscar Wilde, Experience is the name everyone gives to their mistakes.
+Chris Heilmann, Java is to Javascript what car is to carpet.
+Jeff Atwood, Any application that can be written in JavaScript, will eventually be written in JavaScript.
+Joseph Stalin, Quantity has a quality all its own.
+Albert Einstein, Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.
+Phil Karlton, There are only two hard things in Computer Science: cache invalidation and naming things.
+Abraham Lincoln, Don't believe everything you read on the internet
