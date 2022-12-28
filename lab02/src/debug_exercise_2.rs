@@ -6,16 +6,15 @@ pub fn main() {
     println!("{:?}", sum_of_elementwise_maxes(&a, &b));
 }
 
-/* Returns the sum of the element-wise max of a and b.
-   For example if a = {2, 0, 10, 14} and b = {-5, 5, 20, 30},
-   the result should be 57.
-
-   Notice the rreturn type, Result. Result is used for "fallible" operations:
-   it either returns an "Ok" result (here i32) when the oporation succeeds,
-   or an Error (here, a String error message) when it fails.
-
-   The "try" (?) operator is used to return Result::Error should it occur.
-*/
+// Returns the sum of the element-wise max of a and b.
+// For example if a = {2, 0, 10, 14} and b = {-5, 5, 20, 30},
+// the result should be 57.
+//
+// Notice the rreturn type, Result. Result is used for "fallible" operations:
+// it either returns an "Ok" result (here i32) when the oporation succeeds,
+// or an Error (here, a String error message) when it fails.
+//
+// The "try" (?) operator is used to return Result::Error should it occur.
 fn sum_of_elementwise_maxes(a: &Vec<i32>, b: &Vec<i32>) -> Result<i32, String> {
     let maxes = array_max(a, b)?;
     let sum_of_maxes = array_sum(&maxes);

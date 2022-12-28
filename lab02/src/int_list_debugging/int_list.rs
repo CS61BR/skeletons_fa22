@@ -7,12 +7,12 @@ pub enum IntList {
 }
 
 impl IntList {
-    // creates an empty IntList
+    /// creates an empty IntList
     pub fn empty() -> IntList {
         IntList::Empty
     }
 
-    // creates an IntList from a vector of i32s
+    /// creates an IntList from a vector of i32s
     pub fn from(mut v: Vec<i32>) -> IntList {
         if v.is_empty() {
             IntList::Empty
@@ -22,7 +22,7 @@ impl IntList {
         }
     }
 
-    // computes the size of the list using recursion
+    /// computes the size of the list using recursion
     pub fn size(&self) -> usize {
         match self {
             IntList::Empty => 0,
@@ -30,7 +30,7 @@ impl IntList {
         }
     }
 
-    // computes the size of the list without recursion
+    /// computes the size of the list without recursion
     pub fn size_iterative(mut s: &Self) -> usize {
         let mut total = 0;
         while let IntList::More(_, next) = s {
@@ -40,8 +40,8 @@ impl IntList {
         total
     }
 
-    // returns the ith item of this IntList
-    // this really should return an Option, but for simplicity we panic instead
+    /// returns the ith item of this IntList
+    /// (this really should return an Option, but for simplicity we panic instead)
     pub fn get(&self, i: usize) -> i32 {
         match self {
             IntList::Empty => panic!("index out of bounds"),

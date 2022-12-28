@@ -1,21 +1,18 @@
 use rand::Rng;
 
-/**
- * This (complicated) algorithm returns True if its argument is prime,
- * otherwise False. When you're debugging, stepping into this function may
- * not be the best idea! Consider instead stepping *over* this function,
- * and ensuring that its return value makes sense.
- *
- * If you're curious, this algorithm uses Fermat's Little Theorem as a
- * primality test, and returns the correct answer w.h.p. (due to the presence)
- * of Carmichael numbers. If this makes no sense to you, good! It shouldn't.
- * The goal of this function is to make sure you learn to abstract away the inner
- * workings of a function and debug it as a black-box with the "Step Over" feature.
- *
- * @source: https://www.geeksforgeeks.org/primality-test-set-2-fermet-method/
- * @param n an arbitary integrer
- * @return True iff. the integer is prime
- */
+/// This (complicated) algorithm returns True if its argument is prime,
+/// otherwise False. When you're debugging, stepping into this function may
+/// not be the best idea! Consider instead stepping *over* this function,
+/// and ensuring that its return value makes sense.
+///
+/// If you're curious, this algorithm uses Fermat's Little Theorem as a
+/// primality test, and returns the correct answer w.h.p. (due to the presence)
+/// of Carmichael numbers. If this makes no sense to you, good! It shouldn't.
+/// The goal of this function is to make sure you learn to abstract away the inner
+/// workings of a function and debug it as a black-box with the "Step Over" feature.
+///
+///  - source: https://www.geeksforgeeks.org/primality-test-set-2-fermet-method/
+///  - returns true iff. n is prime
 pub fn is_prime(n: i32) -> bool {
     // Corner cases
     if n <= 1 || n == 4 {
@@ -38,12 +35,10 @@ pub fn is_prime(n: i32) -> bool {
     true
 }
 
-/**
- * This is a helper method to isPrime. You can ignore this method.
- * It is an iterative Function to calculate a^n mod p in log time
- *
- * @source: https://www.geeksforgeeks.org/primality-test-set-2-fermet-method/
- */
+/// This is a helper method to isPrime. You can ignore this method.
+/// It is an iterative Function to calculate a^n mod p in log time
+///
+/// source: https://www.geeksforgeeks.org/primality-test-set-2-fermet-method/
 fn power_mod(mut a: i32, mut n: i32, p: i32) -> i32 {
     let mut res = 1;
     a %= p;

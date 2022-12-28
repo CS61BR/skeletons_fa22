@@ -1,6 +1,6 @@
-// tests for add_constant
+/// tests for add_constant
 mod add_constant {
-    use crate::int_list_debugging::{int_list::IntList, int_list_execises::add_constant};
+    use crate::int_list_debugging::{int_list::IntList, int_list_exercises::add_constant};
 
     #[test]
     fn test_add_one() {
@@ -27,9 +27,11 @@ mod add_constant {
     }
 }
 
-// tests for set_to_zero_if_max_fel
+/// tests for set_to_zero_if_max_fel
 mod set_to_zero_if_max_fel {
-    use crate::int_list_debugging::{int_list::IntList, int_list_execises::set_to_zero_if_max_fel};
+    use crate::int_list_debugging::{
+        int_list::IntList, int_list_exercises::set_to_zero_if_max_fel,
+    };
 
     #[test]
     fn test_1() {
@@ -53,15 +55,13 @@ mod set_to_zero_if_max_fel {
     }
 }
 
-// tests for square_primes
+/// tests for square_primes
 mod square_primes {
-    use crate::int_list_debugging::{int_list::IntList, int_list_execises::square_primes};
+    use crate::int_list_debugging::{int_list::IntList, int_list_exercises::square_primes};
 
-    /**
-     * Here is a test for the square_primes method. Try running it.
-     * It passes, but the starter code implementation of square_primes
-     * is broken. Write your own JUnit Test to try to uncover the bug!
-     */
+    /// Here is a test for the square_primes method. Try running it.
+    /// It passes, but the starter code implementation of square_primes
+    /// is broken. Write your own test to try to uncover the bug!
     #[test]
     fn passing() {
         let mut lst = IntList::from(vec![14, 15, 16, 17, 18]);
