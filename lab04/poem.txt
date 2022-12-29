@@ -1,0 +1,13 @@
+Git is such a mysterious tool,
+so many commands and options, I am an ignorant fool.
+
+I add. I commit. I merge, pull and push,
+everything else turns my mind to mush.
+
+I use aliases that make me feel 1337,
+but when I dance with this devil, I have two left feet.
+
+Panic! Merge conflict! Lost in a diff avalanche!
+My detached head is left swinging from a branch.
+
+(source: https://www.reddit.com/r/ProgrammerHumor/comments/7125ug/a_poem_about_git_written_in_git/)
