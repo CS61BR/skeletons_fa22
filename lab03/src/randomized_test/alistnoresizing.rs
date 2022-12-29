@@ -1,5 +1,5 @@
-/* 
-This version does no re-allocation, making the implementation much simpler. 
+/*
+This version does no re-allocation, making the implementation much simpler.
 
 Note that we are restricting T to Default + Copy so we can initialize an array.
 Popular types that are Default + Copy include i32, u32, usize, f64, etc

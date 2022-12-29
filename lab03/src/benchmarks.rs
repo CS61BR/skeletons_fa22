@@ -1,20 +1,8 @@
 use std::time::{Duration, Instant};
 
-use crate::{alist::AList, benchmarkable::Benchmarkable, sllist::SLList};
+use crate::benchmarkable::Benchmarkable;
 
-pub fn benchmark_vec() {
-    benchmark::<Vec<i32>>();
-}
-
-pub fn benchmark_alist() {
-    benchmark::<AList<i32>>();
-}
-
-pub fn benchmark_sllist() {
-    benchmark::<SLList<i32>>();
-}
-
-/* 
+/*
  Benchmarks the "add" and "get" methods of the Benchmarkable type, formatting the
  results in tables like this:
 
@@ -43,7 +31,7 @@ Timing table for Vec::last
       128000     0.000000        10000     0.000002
 
  */
-fn benchmark<T: Benchmarkable>() {
+pub fn benchmark<T: Benchmarkable>() {
     // some example code
     // you should delete this code and write actual benchmarking code
     let mut list = T::new();
@@ -52,7 +40,12 @@ fn benchmark<T: Benchmarkable>() {
         list.add(42);
     }
     let add_elapsed = start.elapsed();
-    println!("Took {:?} to run 10000 {}::{} calls", add_elapsed, T::ALG_NAME, T::ADD_NAME);
+    println!(
+        "Took {:?} to run 10000 {}::{} calls",
+        add_elapsed,
+        T::ALG_NAME,
+        T::ADD_NAME
+    );
 
     unimplemented!(); // TODO: Fill in this function
 }

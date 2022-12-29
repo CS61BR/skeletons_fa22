@@ -5,10 +5,11 @@ mod benchmarks;
 mod randomized_test;
 mod sllist;
 
+use alist::AList;
+use benchmarks::benchmark;
 use clap::Parser;
+use sllist::SLList;
 use std::str::FromStr;
-
-use crate::benchmarks::{benchmark_alist, benchmark_sllist, benchmark_vec};
 
 #[derive(Debug)]
 enum Algorithm {
@@ -41,9 +42,9 @@ fn main() {
     let args = Args::parse();
     for alg in args.algorithm {
         match alg {
-            Algorithm::Vec => benchmark_vec(),
-            Algorithm::AList => benchmark_alist(),
-            Algorithm::SLList => benchmark_sllist(),
+            Algorithm::Vec => benchmark::<Vec<i32>>(),
+            Algorithm::AList => benchmark::<AList<i32>>(),
+            Algorithm::SLList => benchmark::<SLList<i32>>(),
         }
     }
 }
