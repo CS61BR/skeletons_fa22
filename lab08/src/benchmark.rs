@@ -31,67 +31,39 @@ fn main() -> io::Result<()> {
         }
         let mut tokens = buffer.split_whitespace();
         let bench = tokens.next();
-        let alg = tokens.next();
-        let num = tokens.next();
-        let num = if let Some(num) = num {
-            num.parse::<usize>().ok()
-        } else {
-            None
-        };
-        match (bench, alg, num) {
-            (Some("ordered"), Some(s), Some(n)) => all_ordered(s, n),
-            (Some("random"), Some(s), Some(n)) => all_random(s, n),
+        let choices = tokens.next();
+        let num = tokens.next().and_then(|s| s.parse().ok());
+        match (bench, choices, num) {
+            (Some("ordered"), Some(choices), Some(n)) => bench_all(choices, n, true),
+            (Some("random"), Some(choices), Some(n)) => bench_all(choices, n, false),
             _ => println!("Sorry, I didn't understand that."),
         }
     }
 }
 
-fn all_ordered(choices: &str, n: usize) {
+fn bench_all(choices: &str, n: usize, ordered: bool) {
     for c in choices.chars() {
         match c {
-            'u' => bench_ordered::<ULLMap<usize, usize>>("ULLMap   ", n),
-            'm' => bench_ordered::<MyHashMap<usize, usize>>("MyHashMap", n),
-            'c' => bench_ordered::<CHashMap<usize, usize>>("CHashMap ", n),
-            'o' => bench_ordered::<OHashMap<usize, usize>>("OHashMap ", n),
-            't' => bench_ordered::<BTreeMap<usize, usize>>("BTreeMap ", n),
-            'h' => bench_ordered::<HashMap<usize, usize>>("HashMap  ", n),
+            'u' => bench_single::<ULLMap<usize, usize>>("ULLMap   ", n, ordered),
+            'm' => bench_single::<MyHashMap<usize, usize>>("MyHashMap", n, ordered),
+            'c' => bench_single::<CHashMap<usize, usize>>("CHashMap ", n, ordered),
+            'o' => bench_single::<OHashMap<usize, usize>>("OHashMap ", n, ordered),
+            't' => bench_single::<BTreeMap<usize, usize>>("BTreeMap ", n, ordered),
+            'h' => bench_single::<HashMap<usize, usize>>("HashMap  ", n, ordered),
             _ => {}
         }
     }
 }
 
-fn all_random(choices: &str, n: usize) {
-    for c in choices.chars() {
-        match c {
-            'u' => bench_random::<ULLMap<usize, usize>>("ULLMap   ", n),
-            'm' => bench_random::<MyHashMap<usize, usize>>("MyHashMap", n),
-            'c' => bench_random::<CHashMap<usize, usize>>("CHashMap ", n),
-            'o' => bench_random::<OHashMap<usize, usize>>("OHashMap ", n),
-            't' => bench_random::<BTreeMap<usize, usize>>("BTreeMap ", n),
-            'h' => bench_random::<HashMap<usize, usize>>("HashMap  ", n),
-            _ => {}
-        }
-    }
-}
-
-fn bench_ordered<T: Map61B<Key = usize, Value = usize>>(name: &str, n: usize) {
+fn bench_single<T: Map61B<Key = usize, Value = usize>>(name: &str, n: usize, ordered: bool) {
     let mut map = T::new();
+    let values: Vec<usize> = if ordered {
+        (0..n).collect()
+    } else {
+        (0..n).map(|_| rand::random()).collect()
+    };
     let start = Instant::now();
-    for i in 0..n {
-        map.insert(i, i);
-    }
-    println!(
-        "{} time taken: {:>12.6} seconds",
-        name,
-        start.elapsed().as_secs_f64()
-    );
-}
-
-fn bench_random<T: Map61B<Key = usize, Value = usize>>(name: &str, n: usize) {
-    let mut map = T::new();
-    let rand_values = (0..n).map(|_| rand::random()).collect::<Vec<usize>>();
-    let start = Instant::now();
-    for v in rand_values {
+    for v in values {
         map.insert(v, v);
     }
     println!(
