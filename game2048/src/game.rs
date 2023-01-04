@@ -83,12 +83,12 @@ impl MovingTile {
 
 // given a location (x,y) on the rotated board,
 // returns the original location of the tile on the unrotated board
-fn unrotate(board: &Board, x: usize, y: usize, dir: Direction) -> (usize, usize) {
-    match dir {
+fn unrotate(rotated: &RotatedBoard, x: usize, y: usize) -> (usize, usize) {
+    match rotated.dir {
         Direction::North => (x, y),
-        Direction::East => (board.width - 1 - y, x),
-        Direction::South => (board.width - 1 - x, board.height - 1 - y),
-        Direction::West => (y, board.height - 1 - x),
+        Direction::East => (rotated.height - 1 - y, x),
+        Direction::South => (rotated.width - 1 - x, rotated.height - 1 - y),
+        Direction::West => (y, rotated.width - 1 - x),
     }
 }
 
@@ -99,7 +99,7 @@ fn rotate_board(board: &Board, dir: Direction) -> RotatedBoard {
         Direction::North | Direction::South => (board.width, board.height),
         Direction::East | Direction::West => (board.height, board.width),
     };
-    let mut rot = RotatedBoard {
+    let mut rotated = RotatedBoard {
         tiles: vec![vec![0; new_height]; new_width],
         width: new_width,
         height: new_height,
@@ -107,11 +107,11 @@ fn rotate_board(board: &Board, dir: Direction) -> RotatedBoard {
     };
     for x in 0..new_width {
         for y in 0..new_height {
-            let (old_a, old_b) = unrotate(board, x, y, dir);
-            rot.tiles[x][y] = board.tiles[old_a][old_b];
+            let (old_a, old_b) = unrotate(&rotated, x, y);
+            rotated.tiles[x][y] = board.tiles[old_a][old_b];
         }
     }
-    rot
+    rotated
 }
 
 // Rotate the board back to its original position (north facing up)
@@ -127,7 +127,7 @@ fn unrotate_board(rotated: RotatedBoard) -> Board {
     };
     for a in 0..rotated.width {
         for b in 0..rotated.height {
-            let (old_a, old_b) = unrotate(&board, a, b, rotated.dir);
+            let (old_a, old_b) = unrotate(&rotated, a, b);
             board.tiles[old_a][old_b] = rotated.tiles[a][b];
         }
     }
@@ -136,9 +136,9 @@ fn unrotate_board(rotated: RotatedBoard) -> Board {
 
 // Given moves constructed on a rotated board, rotate them to match
 // the board's original position
-fn unrotate_move(board: &Board, mt: &mut MovingTile, dir: Direction) {
-    (mt.start_x, mt.start_y) = unrotate(board, mt.start_x, mt.start_y, dir);
-    (mt.end_x, mt.end_y) = unrotate(board, mt.end_x, mt.end_y, dir);
+fn unrotate_move(rotated: &RotatedBoard, mt: &mut MovingTile) {
+    (mt.start_x, mt.start_y) = unrotate(rotated, mt.start_x, mt.start_y);
+    (mt.end_x, mt.end_y) = unrotate(rotated, mt.end_x, mt.end_y);
 }
 
 // Given the current state of the board and the direction in which to tilt,
