@@ -1,7 +1,7 @@
 use std::fmt::Debug;
 
 use crate::{
-    bindings::{console_log_str, log},
+    bindings::log,
     random::Random,
 };
 
