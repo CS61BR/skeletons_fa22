@@ -5,6 +5,22 @@ use crate::{
 };
 use wasm_bindgen::prelude::*;
 
+#[cfg(not(target_arch = "wasm32"))]
+pub fn console_log_str(s: &str) {
+    println!("{}", s);
+}
+
+macro_rules! log {
+    ($($t:tt)*) => ($crate::bindings::console_log_str(&format_args!($($t)*).to_string()))
+}
+pub(crate) use log; // make log macro public
+
+#[wasm_bindgen(start)]
+pub fn main() {
+    // allows Rust to have actual error messages in webassembly
+    std::panic::set_hook(Box::new(console_error_panic_hook::hook));
+}
+
 #[wasm_bindgen]
 extern "C" {
     #[cfg(target_arch = "wasm32")]
@@ -19,16 +35,6 @@ extern "C" {
     pub fn draw_text(text: &str, x: f64, y: f64, color: &str, font: &str);
     fn set_score_text(text: &str);
 }
-
-#[cfg(not(target_arch = "wasm32"))]
-pub fn console_log_str(s: &str) {
-    println!("{}", s);
-}
-
-macro_rules! log {
-    ($($t:tt)*) => (console_log_str(&format_args!($($t)*).to_string()))
-}
-pub(crate) use log; // make log macro public
 
 #[wasm_bindgen]
 pub struct Game {

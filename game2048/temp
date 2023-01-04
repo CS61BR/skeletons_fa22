@@ -1,0 +1,37 @@
+failed tests::tilt::test_many_merges_up
+
+running 1 test
+test tests::tilt::test_many_merges_up ... FAILED
+
+failures:
+
+---- tests::tilt::test_many_merges_up stdout ----
+This is an example log message. Use log messages to help you debug!
+thread 'tests::tilt::test_many_merges_up' panicked at 'not implemented', src/game.rs:152:5
+stack backtrace:
+   0: rust_begin_unwind
+             at /rustc/e092d0b6b43f2de967af0887873151bb1c0b18d3/library/std/src/panicking.rs:584:5
+   1: core::panicking::panic_fmt
+             at /rustc/e092d0b6b43f2de967af0887873151bb1c0b18d3/library/core/src/panicking.rs:142:14
+   2: core::panicking::panic
+             at /rustc/e092d0b6b43f2de967af0887873151bb1c0b18d3/library/core/src/panicking.rs:48:5
+   3: game2048::game::tilt
+             at ./src/game.rs:152:5
+   4: game2048::tests::utils::test_tilt
+             at ./src/tests/utils.rs:41:19
+   5: game2048::tests::tilt::test_many_merges_up
+             at ./src/tests/tilt.rs:847:5
+   6: game2048::tests::tilt::test_many_merges_up::{{closure}}
+             at ./src/tests/tilt.rs:818:1
+   7: core::ops::function::FnOnce::call_once
+             at /rustc/e092d0b6b43f2de967af0887873151bb1c0b18d3/library/core/src/ops/function.rs:248:5
+   8: core::ops::function::FnOnce::call_once
+             at /rustc/e092d0b6b43f2de967af0887873151bb1c0b18d3/library/core/src/ops/function.rs:248:5
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+
+
+failures:
+    tests::tilt::test_many_merges_up
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 66 filtered out; finished in 0.01s
+

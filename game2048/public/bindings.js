@@ -45,14 +45,14 @@ export function start() {
       canvas = document.getElementById("main-canvas");
       ctx = canvas.getContext("2d");
       seed_string = "" + new Date().getTime() + Math.random();
-      game = Game.new(wi.value, hi.value, seed_string);
+      game = Game.new(parseInt(wi.value), parseInt(hi.value), seed_string);
       
       window.addEventListener("keydown", (e) => {
         game.handle_keypress(e.code);
       });
 
       let reset = () => {
-        game.reset(wi.value, hi.value);
+        game.reset(parseInt(wi.value), parseInt(hi.value));
       };
       document.getElementById("new-game-btn").onclick = reset;
       document.getElementById("width-inp").onchange = reset;

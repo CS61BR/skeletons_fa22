@@ -174,7 +174,7 @@ pub fn add_tile(board: &mut Board, random: &mut Random) {
     } else {
         2
     };
-    let mut idx = random.next() % open_positions;
+    let mut idx = random.next_below(open_positions);
     for x in 0..board.width {
         for y in 0..board.height {
             if board.tiles[x][y] == 0 {
