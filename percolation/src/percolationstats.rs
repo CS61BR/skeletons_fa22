@@ -26,6 +26,6 @@ pub fn calculate_stats<P: Percolatable>(
     height: usize,
     trials: usize,
     random: &mut Random,
-) -> Result<PercolationStats, &'static str> {
+) -> PercolationStats {
     unimplemented!() // TODO: fill in this method
 }

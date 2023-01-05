@@ -1,22 +1,16 @@
 use crate::wqu::WeightedQuickUnion;
 
 pub struct Percolation {
-    width: usize,
-    height: usize,
-    full: WeightedQuickUnion,
-    percolates: WeightedQuickUnion,
-    open: Vec<bool>,
-    open_count: usize,
-    can_percolate: bool,
+    // add any struct fields you need
 }
 
 pub trait Percolatable {
     fn new(width: usize, height: usize) -> Self;
     fn width(&self) -> usize;
     fn height(&self) -> usize;
-    fn open(&mut self, row: usize, col: usize) -> Result<(), &'static str>;
-    fn is_open(&self, row: usize, col: usize) -> Result<bool, &'static str>;
-    fn is_full(&self, row: usize, col: usize) -> Result<bool, &'static str>;
+    fn open(&mut self, row: usize, col: usize);
+    fn is_open(&self, row: usize, col: usize) -> bool;
+    fn is_full(&self, row: usize, col: usize) -> bool;
     fn number_of_open_sites(&self) -> usize;
     fn percolates(&self) -> bool;
 }
@@ -34,15 +28,15 @@ impl Percolatable for Percolation {
         unimplemented!() // TODO: fill in this method
     }
 
-    fn open(&mut self, row: usize, col: usize) -> Result<(), &'static str> {
+    fn open(&mut self, row: usize, col: usize) {
         unimplemented!() // TODO: fill in this method
     }
 
-    fn is_open(&self, row: usize, col: usize) -> Result<bool, &'static str> {
+    fn is_open(&self, row: usize, col: usize) -> bool {
         unimplemented!() // TODO: fill in this method
     }
 
-    fn is_full(&self, row: usize, col: usize) -> Result<bool, &'static str> {
+    fn is_full(&self, row: usize, col: usize) -> bool {
         unimplemented!() // TODO: fill in this method
     }
 

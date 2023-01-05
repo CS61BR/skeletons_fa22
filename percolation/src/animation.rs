@@ -4,8 +4,6 @@ use crate::{
     percolationstats::PercolationStats,
 };
 
-pub const TILE_TIME: u8 = 1;
-
 const TILE_SIZE: f64 = 15.0;
 const BORDER_THICKNESS: f64 = 2.0;
 const MAX_WIDTH: f64 = 1200.;
@@ -58,10 +56,10 @@ pub fn draw_percolation(p: &Percolation) {
     for row in 0..p.height() {
         for col in 0..p.width() {
             let mut color = "#000000";
-            if p.is_open(row, col).expect("asd") {
+            if p.is_open(row, col) {
                 color = "#ffffff";
             }
-            if p.is_full(row, col).expect("asd") {
+            if p.is_full(row, col) {
                 color = "#67c6f3";
             }
             let x = (col as f64) * (tile_size + border_thickness) + border_thickness;

@@ -1,61 +1,71 @@
 #![allow(dead_code)] // allow things in this module to go unused
 use std::num::Wrapping;
 
-/// small random implementation,
-/// source: https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript
+/// small random implementation
+/// sfc64 algorithm with 256-bit random state
 pub struct Random {
-    a: Wrapping<u32>,
-    b: Wrapping<u32>,
-    c: Wrapping<u32>,
-    d: Wrapping<u32>,
+    a: Wrapping<u64>,
+    b: Wrapping<u64>,
+    c: Wrapping<u64>,
+    d: Wrapping<u64>,
 }
 
 impl Random {
-    /// Constructs a new Random using the cyrb123 hash function
+    /// Constructs a new Random by hashing the string
     pub fn new(seed: &str) -> Random {
-        let mut h1 = Wrapping(1779033703);
-        let mut h2 = Wrapping(3144134277);
-        let mut h3 = Wrapping(1013904242);
-        let mut h4 = Wrapping(2773480762);
+        let fib = Wrapping::<u64>(11400714819323198485); // 2^64 / phi
+        let mut ar = [
+            Wrapping(3141592653589793238), // random numbers to initialize
+            Wrapping(4626433832795028841), // I chose digits of pi
+            Wrapping(9716939937510582097),
+            Wrapping(4944592307816406286),
+        ];
+        let mut c = 0;
+        // not a good hash, but preserves most of the entropy
         for b in seed.as_bytes() {
-            let k = Wrapping(u32::from(*b));
-            h1 = h2 ^ ((h1 ^ k) * Wrapping(597399067));
-            h2 = h3 ^ ((h2 ^ k) * Wrapping(2869860233));
-            h3 = h4 ^ ((h3 ^ k) * Wrapping(951274213));
-            h4 = h1 ^ ((h4 ^ k) * Wrapping(2716044179));
+            ar[c] = (ar[c] + Wrapping(u64::from(*b))) * fib;
+            ar[c] = (ar[c] << 25) | (ar[c] >> 39);
+            c = (c + 1) & 3;
         }
-        h1 = h3 ^ ((h1 >> 18) * Wrapping(597399067));
-        h2 = h4 ^ ((h2 >> 22) * Wrapping(2869860233));
-        h3 = h1 ^ ((h3 >> 17) * Wrapping(951274213));
-        h4 = h2 ^ ((h4 >> 19) * Wrapping(2716044179));
         Random {
-            a: h1 ^ h2 ^ h3 ^ h4,
-            b: h1 ^ h2,
-            c: h1 ^ h3,
-            d: h1 ^ h4,
+            a: ar[0],
+            b: ar[1],
+            c: ar[2],
+            d: ar[3],
         }
     }
 
-    /// returns the next u32 according to the sfc32 algorithm
-    pub fn next(&mut self) -> u32 {
-        let mut t = self.a + self.b;
-        self.a = self.b ^ self.b >> 9;
+    /// returns the next u64 according to the sfc64 algorithm
+    pub fn next(&mut self) -> u64 {
+        let t = self.a + self.b + self.d;
+        self.a = self.b ^ (self.b >> 11);
         self.b = self.c + (self.c << 3);
-        self.c = self.c << 21 | self.c >> 11;
+        self.c = ((self.c << 24) | (self.c >> 40)) + t;
         self.d += 1;
-        t += self.d;
-        self.c += t;
         t.0
     }
 
-    /// returns a usize in the range [0, n)
+    /// returns a usize uniformly in the range [0, n).
     pub fn next_below(&mut self, n: usize) -> usize {
-        self.next() as usize % n
+        if n < 2 {
+            return 0;
+        }
+        let mut mask: usize = !0;
+        mask >>= (n - 1).leading_zeros();
+        // sampling with rejection makes sure result is unbiased
+        loop {
+            let mut x = self.next() as usize;
+            x &= mask;
+            if x < n {
+                break x;
+            }
+        }
     }
 
-    /// returns an f64 in the range [0, 1)
+    /// returns an f64 uniformly in the range [0, 1)
     pub fn next_f64(&mut self) -> f64 {
-        let n: f64 = self.next().into();
-        n / 4294967296.0 // 2**32
+        // f64 has 53 bits of precision, so shifting by 11 makes sure
+        // all values in range have the same precision
+        (self.next() >> 11) as f64 / ((u64::MAX >> 11) + 1) as f64
     }
 }

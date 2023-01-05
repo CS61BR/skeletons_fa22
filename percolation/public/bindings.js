@@ -14,9 +14,9 @@ export function set_canvas_size(w, h) {
 export function request_animation_frame() {
   if (!requested_frame) {
     requested_frame = true;
-    window.requestAnimationFrame(() => {
+    window.requestAnimationFrame((timestamp) => {
       requested_frame = false;
-      vis.draw_animation_frame();
+      vis.draw_animation_frame(timestamp);
     });
   }
 }
@@ -40,6 +40,10 @@ export function set_bottom_text(text) {
 
 export function start() {
   init().then(() => {
+      function get_int(el) {
+        return parseInt(el.value);
+      }
+
       let iwi = document.getElementById("i-width-inp");
       let ihi = document.getElementById("i-height-inp");
       let swi = document.getElementById("s-width-inp");
@@ -50,16 +54,16 @@ export function start() {
       canvas = document.getElementById("main-canvas");
       ctx = canvas.getContext("2d");
       seed_string = "" + new Date().getTime() + Math.random();
-      vis = Visualizer.new(iwi.value, ihi.value, seed_string);
+      vis = Visualizer.new(get_int(iwi), get_int(ihi), seed_string);
       
       document.getElementById("interactive-btn").onclick = () => {
         sbox.style.display = "none";
         ibox.style.display = "block";
-        vis.start_interactive(iwi.value, ihi.value);
+        vis.start_interactive(get_int(iwi), get_int(ihi));
       }
 
       document.getElementById("interactive-btn-2").onclick = () => {
-        vis.start_interactive(iwi.value, ihi.value);
+        vis.start_interactive(get_int(iwi), get_int(ihi));
       }
 
       document.getElementById("random-btn").onclick = () => {
@@ -81,11 +85,11 @@ export function start() {
       document.getElementById("stats-btn").onclick = () => {
         ibox.style.display = "none";
         sbox.style.display = "block";
-        vis.start_stats(swi.value, shi.value, sti.value);
+        vis.start_stats(get_int(swi), get_int(shi), get_int(sti));
       }
 
       document.getElementById("stats-btn-2").onclick = () => {
-        vis.start_stats(swi.value, shi.value, sti.value);
+        vis.start_stats(get_int(swi), get_int(shi), get_int(sti));
       }
 
 

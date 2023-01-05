@@ -22,27 +22,24 @@ impl WeightedQuickUnion {
     }
 
     /// Returns the canonical element of the set containing element `p`
-    pub fn find(&self, mut p: usize) -> Result<usize, &'static str> {
-        if p >= self.parent.len() {
-            return Err("index out of bounds");
-        }
+    pub fn find(&self, mut p: usize) -> usize {
         while p != self.parent[p] {
             p = self.parent[p];
         }
-        Ok(p)
+        p
     }
 
     /// Returns whether two elements are in the same set
-    pub fn connected(&self, p: usize, q: usize) -> Result<bool, &'static str> {
-        Ok(self.find(p)? == self.find(q)?)
+    pub fn connected(&self, p: usize, q: usize) -> bool {
+        self.find(p) == self.find(q)
     }
 
     /// Merges the set containing element `p` with the set containing element `q`
-    pub fn union(&mut self, p: usize, q: usize) -> Result<(), &'static str> {
-        let mut root_p = self.find(p)?;
-        let mut root_q = self.find(q)?;
+    pub fn union(&mut self, p: usize, q: usize) {
+        let mut root_p = self.find(p);
+        let mut root_q = self.find(q);
         if root_p == root_q {
-            return Ok(());
+            return;
         }
         if self.size[root_p] > self.size[root_q] {
             (root_p, root_q) = (root_q, root_p);
@@ -50,6 +47,5 @@ impl WeightedQuickUnion {
         self.parent[root_p] = root_q;
         self.size[root_q] += self.size[root_p];
         self.count -= 1;
-        Ok(())
     }
 }

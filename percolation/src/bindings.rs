@@ -1,7 +1,5 @@
 use crate::{
-    animation::{
-        canvas_size, convert, draw_graph, draw_percolation, GRAPH_HEIGHT, GRAPH_WIDTH, TILE_TIME,
-    },
+    animation::{canvas_size, convert, draw_graph, draw_percolation, GRAPH_HEIGHT, GRAPH_WIDTH},
     percolation::{Percolatable, Percolation},
     percolationstats::{calculate_stats, PercolationStats},
     random::Random,
@@ -50,7 +48,8 @@ enum VisualizationMode {
     Picture {
         percolation: Percolation,
         tiles: Vec<(usize, usize)>,
-        animation_progress: u8,
+        time_per_tile: f64,
+        last_timestamp: f64,
     },
     Stats(PercolationStats),
 }
@@ -82,48 +81,45 @@ impl Visualizer {
     pub fn start_stats(&mut self, width: usize, height: usize, trials: usize) {
         set_canvas_size(GRAPH_WIDTH, GRAPH_HEIGHT);
         set_bottom_text("Calculating...");
-        match calculate_stats::<Percolation>(width, height, trials, &mut self.rand) {
-            Ok(stats) => {
-                self.mode = VisualizationMode::Stats(stats);
-                set_bottom_text("Done");
-                request_animation_frame();
-            }
-            Err(_) => set_bottom_text("Error calculating stats"),
-        }
+        let stats = calculate_stats::<Percolation>(width, height, trials, &mut self.rand);
+        self.mode = VisualizationMode::Stats(stats);
+        set_bottom_text("Done");
+        request_animation_frame();
     }
 
     pub fn respond_to_mousedown(&mut self, x: f64, y: f64) {
         if let VisualizationMode::Interactive(percolation) = &mut self.mode {
             let (w, h) = (percolation.width(), percolation.height());
             if let Some((row, col)) = convert(x, y, w, h) {
-                if let Ok(open) = percolation.is_open(row, col) {
-                    if !open {
-                        percolation.open(row, col).expect("out of bounds in open");
-                        request_animation_frame();
-                    }
+                if !percolation.is_open(row, col) {
+                    percolation.open(row, col);
+                    request_animation_frame();
                 }
             }
         }
     }
 
-    pub fn draw_animation_frame(&mut self) {
+    pub fn draw_animation_frame(&mut self, timestamp: f64) {
         match &mut self.mode {
             VisualizationMode::Interactive(percolation) => draw_percolation(percolation),
             VisualizationMode::Stats(stats) => draw_graph(stats),
             VisualizationMode::Picture {
                 percolation,
                 tiles,
-                animation_progress,
+                time_per_tile,
+                last_timestamp,
             } => {
-                *animation_progress += 1;
-                if *animation_progress == TILE_TIME {
-                    draw_percolation(percolation);
-                    *animation_progress = 0;
+                *last_timestamp = last_timestamp.max(timestamp - 50.); //cap at 50ms
+                while *last_timestamp < timestamp {
+                    *last_timestamp += *time_per_tile;
                     if let Some((row, col)) = tiles.pop() {
-                        percolation.open(row, col).expect("out of bounds in open");
-                        request_animation_frame();
+                        percolation.open(row, col);
+                    } else {
+                        break;
                     }
-                } else {
+                }
+                draw_percolation(percolation);
+                if !tiles.is_empty() {
                     request_animation_frame();
                 }
             }
@@ -144,6 +140,7 @@ fn parse_input(input: &str) -> Option<(usize, usize, VisualizationMode)> {
         .map(parse_line)
         .collect::<Option<Vec<(usize, usize)>>>()?;
     tiles.reverse();
+    let time_per_tile = (15000. / tiles.len() as f64).max(100.);
 
     Some((
         width,
@@ -151,7 +148,8 @@ fn parse_input(input: &str) -> Option<(usize, usize, VisualizationMode)> {
         VisualizationMode::Picture {
             percolation: Percolation::new(width, height),
             tiles,
-            animation_progress: 0,
+            time_per_tile,
+            last_timestamp: 0.,
         },
     ))
 }
