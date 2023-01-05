@@ -140,7 +140,7 @@ fn parse_input(input: &str) -> Option<(usize, usize, VisualizationMode)> {
         .map(parse_line)
         .collect::<Option<Vec<(usize, usize)>>>()?;
     tiles.reverse();
-    let time_per_tile = (15000. / tiles.len() as f64).max(100.);
+    let time_per_tile = (15000. / tiles.len() as f64).min(100.);
 
     Some((
         width,

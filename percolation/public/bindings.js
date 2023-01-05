@@ -70,11 +70,12 @@ export function start() {
         sbox.style.display = "none";
         ibox.style.display = "none";
         let pictures = [
-"greeting57.txt",  "input1-no.txt",  "input2.txt",   "input5.txt",       "input8-no.txt",  "sedgewick60.txt",  "snake501.txt",
-"heart25.txt",     "input1.txt",     "input3.txt",   "input6.txt",       "input8.txt",     "snake1001.txt",    "wayne98b.txt",
+"greeting57.txt",  "input1-no.txt",  "input2.txt",   "input5.txt",       "input8-no.txt",  "sedgewick60.txt",/*"snake501.txt",*/
+"heart25.txt",     "input1.txt",     "input3.txt",   "input6.txt",       "input8.txt",   /*"snake1001.txt",*/  "wayne98b.txt",
 "input10-no.txt",  "input20.txt",    "input4.txt",   "input7.txt",       "jerry47.txt",    "snake101.txt",     "wayne98.txt",
 "input10.txt",     "input2-no.txt",  "input50.txt",  "input8-dups.txt",  "michael61.txt",  "snake13.txt",
         ]
+        // snake501 and snake1001 are just too big to watch
         let rand_index = Math.floor(Math.random() * pictures.length);
         console.log("fetching random picture" + pictures[rand_index]);
         fetch("./public/pictures/" + pictures[rand_index]).then(r => r.text()).then((t) => {
