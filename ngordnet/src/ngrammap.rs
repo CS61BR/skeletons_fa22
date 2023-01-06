@@ -3,8 +3,7 @@ use std::{collections::HashMap, io::BufRead};
 use crate::timeseries::TimeSeries;
 
 pub struct NGramMap {
-    words_data: HashMap<String, TimeSeries>,
-    totals: TimeSeries,
+    // add any struct fields you need
 }
 
 impl NGramMap {
