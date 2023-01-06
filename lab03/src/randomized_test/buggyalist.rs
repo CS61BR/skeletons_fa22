@@ -50,11 +50,19 @@ impl<T: Default> BAList<T> {
     }
 
     pub fn get(&self, index: usize) -> Option<&T> {
-        self.items.get(index)
+        if index < self.len {
+            Some(&self.items[index])
+        } else {
+            None
+        }
     }
 
     pub fn get_mut(&mut self, index: usize) -> Option<&mut T> {
-        self.items.get_mut(index)
+        if index < self.len {
+            Some(&mut self.items[index])
+        } else {
+            None
+        }
     }
 
     pub fn get_last(&self) -> Option<&T> {
