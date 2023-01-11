@@ -35,7 +35,7 @@ impl<T: Default> AList<T> {
 
     fn resize(&mut self, capacity: usize) {
         let mut new_items = allocate_slice(capacity);
-        for i in 0..self.items.len() {
+        for i in 0..self.len {
             mem::swap(&mut self.items[i], &mut new_items[i]);
         }
         self.items = new_items;
