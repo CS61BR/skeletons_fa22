@@ -4,7 +4,7 @@ use crate::{percolation::Percolatable, random::Random};
 
 pub struct PercolationStats {
     pub counts: Vec<usize>, // of length width * height
-    // counts[i] represents how many perculated after exactly i tiles opened
+    // counts[i] represents how many trials percolated after exactly i tiles opened
     mean: f64,            // mean of (open sites)/(width * height) to percolate
     stddev: f64,          // stddev of ratio
     confidence_low: f64,  // 95% threshhold
